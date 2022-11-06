@@ -25,6 +25,17 @@ public class ApptBook implements Cloneable {
 	// The constructor should take an Appointment.
 	// The fields of Node should have "default" access (neither public, nor private)
 	// and should not start with underscores.
+	
+	private static class Node{
+		Appointment data;
+		Node left;
+		Node right;
+		
+		public Node(Appointment o) {
+			data = o;
+			left = right = null;
+		}
+	}
 
 	// TODO: Declare the private fields of ApptBook needed for sequences
 	// using a binary search tree.
