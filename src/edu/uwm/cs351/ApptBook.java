@@ -274,6 +274,9 @@ public class ApptBook implements Cloneable {
 	 */
 	private Node nextInTree(Node r, Appointment appt, boolean acceptEquivalent, Node alt) {
 		// TODO: recursion not required, but is simpler
+		if (appt == null) {
+			throw new NullPointerException();
+		}
 		return null;
 	}
 	
