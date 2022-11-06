@@ -83,7 +83,18 @@ public class ApptBook implements Cloneable {
 	 * @return number of nodes in subtree
 	 */
 	private int countNodes(Node r) {
-		return 0; // TODO
+		// TODO
+		int count = 0;
+		
+		if (r != null) {
+			count++;
+			count += countNodes(r.left) + countNodes(r.right);
+		}
+
+				
+		
+		
+		return count;
 	}
 	
 	/**
