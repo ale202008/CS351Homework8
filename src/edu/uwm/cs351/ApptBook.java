@@ -91,9 +91,6 @@ public class ApptBook implements Cloneable {
 			count += countNodes(r.left) + countNodes(r.right);
 		}
 
-				
-		
-		
 		return count;
 	}
 	
@@ -106,7 +103,27 @@ public class ApptBook implements Cloneable {
 	 * @return
 	 */
 	private boolean allInRange(Node r, Appointment lo, Appointment hi) {
-		return false; // TODO
+		// TODO
+		
+		if (r == null) {
+			return true;
+		}
+		
+		if (hi != null && hi.compareTo(r.data) < 0 || lo != null && lo.compareTo(r.data) > 0) {
+			return report("not in range");
+		}
+		if (hi != null && hi.compareTo(r.data) == 0) {
+			return report("not before root");
+		}
+		
+		if (!allInRange(r.left, lo, r.data)) {
+			return false;
+		}
+		if (!allInRange(r.right, r.data, hi)) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
