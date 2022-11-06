@@ -57,10 +57,20 @@ public class ApptBook implements Cloneable {
 	 * since it has unbounded height.
 	 * @param r root of subtree to check, may be null
 	 * @param max maximum permitted height (null has height 0)
-	 * @return whether the subtree has at most tgis height
+	 * @return whether the subtree has at most this height
 	 */
 	private boolean checkHeight(Node r, int max) {
-		return false; // TODO
+		 // TODO
+		if (r == null && max < 0) {
+			return false;
+		}
+		
+		if (r != null && (!checkHeight(r.left, max-1) || !checkHeight(r.right, max-1))){
+			return false;
+		}
+
+		
+		return true;
 	}
 	
 	/**
