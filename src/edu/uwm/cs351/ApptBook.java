@@ -205,7 +205,14 @@ public class ApptBook implements Cloneable {
 	 * @return first node in the subtree
 	 */
 	private Node firstInTree(Node r) {
-		return null; // TODO: non-recursive is fine
+		// TODO: non-recursive is fine
+		Node t = r;
+		
+		if (r.left != null) {
+			t = firstInTree(r.left);
+		}
+		
+		return t;
 	}
 	
 	/**
