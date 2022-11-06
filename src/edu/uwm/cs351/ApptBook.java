@@ -39,6 +39,10 @@ public class ApptBook implements Cloneable {
 
 	// TODO: Declare the private fields of ApptBook needed for sequences
 	// using a binary search tree.
+	private int manyItems;
+	private Node root;
+	private Node precursor;
+	private Node cursor;
 
 	private static Consumer<String> reporter = (s) -> { System.err.println("Invariant error: " + s); };
 	
@@ -129,10 +133,11 @@ public class ApptBook implements Cloneable {
 	 * @return
 	 *   the number of elements in this book
 	 **/ 
-	public int size( )
+	public int size()
 	{
 		assert wellFormed() : "invariant failed at start of size";
 		// TODO: Implemented by student.
+		return 0;
 	}
 
 	/**
@@ -171,6 +176,7 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of isCurrent";
 		// TODO: Implemented by student.
+		return false;
 	}
 
 	/**
@@ -187,6 +193,7 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of getCurrent";
 		// TODO: Implemented by student.
+		return null;
 	}
 
 	/**
@@ -203,6 +210,7 @@ public class ApptBook implements Cloneable {
 	 */
 	private Node nextInTree(Node r, Appointment appt, boolean acceptEquivalent, Node alt) {
 		// TODO: recursion not required, but is simpler
+		return null;
 	}
 	
 	/**
