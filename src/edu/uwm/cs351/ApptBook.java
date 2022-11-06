@@ -119,9 +119,6 @@ public class ApptBook implements Cloneable {
 		if (!allInRange(r.left, lo, r.data) || !allInRange(r.right, r.data, hi)) {
 			return false;
 		}
-//		if (!allInRange(r.right, r.data, hi)) {
-//			return false;
-//		}
 		
 		return true;
 	}
@@ -139,14 +136,19 @@ public class ApptBook implements Cloneable {
 	private boolean foundCursor(Node r) {
 		// TODO
 		
-		if(!checkHeight(r, manyItems)) {
+		if(!checkHeight(r, countNodes(r))) {
 			return false;
 		}
 		
-		if (!foundCursor(r.left)) {
+		if (cursor == r) {
+			return true;
+		}
+		
+		if (r == null && cursor != null) {
 			return false;
 		}
-		if (!foundCursor(r.right)) {
+		
+		if (r != null && !foundCursor(r.left) && !foundCursor(r.right)) {
 			return false;
 		}
 
