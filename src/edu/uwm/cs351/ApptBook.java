@@ -3,6 +3,11 @@
 
 package edu.uwm.cs351;
 
+/*
+ * Andrew Le
+ * Homework 8, CS 351
+ */
+
 import java.util.function.Consumer;
 
 import edu.uwm.cs.junit.LockedTestCase;
