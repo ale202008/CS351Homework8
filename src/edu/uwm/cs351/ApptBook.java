@@ -65,6 +65,10 @@ public class ApptBook implements Cloneable {
 			return false;
 		}
 		
+		if (max < 0) {
+			return false;
+		}
+
 		if (r != null && (!checkHeight(r.left, max-1) || !checkHeight(r.right, max-1))){
 			return false;
 		}
