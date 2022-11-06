@@ -116,12 +116,12 @@ public class ApptBook implements Cloneable {
 			return report("not before root");
 		}
 		
-		if (!allInRange(r.left, lo, r.data)) {
+		if (!allInRange(r.left, lo, r.data) || !allInRange(r.right, r.data, hi)) {
 			return false;
 		}
-		if (!allInRange(r.right, r.data, hi)) {
-			return false;
-		}
+//		if (!allInRange(r.right, r.data, hi)) {
+//			return false;
+//		}
 		
 		return true;
 	}
@@ -137,7 +137,20 @@ public class ApptBook implements Cloneable {
 	 * @return true if the cursor was found in the subtree
 	 */
 	private boolean foundCursor(Node r) {
-		return false; // TODO
+		// TODO
+		
+		if(!checkHeight(r, manyItems)) {
+			return false;
+		}
+		
+		if (!foundCursor(r.left)) {
+			return false;
+		}
+		if (!foundCursor(r.right)) {
+			return false;
+		}
+
+		return true;
 	}
 
 	
