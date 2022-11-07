@@ -279,21 +279,36 @@ public class ApptBook implements Cloneable {
 	private Node nextInTree(Node r, Appointment appt, boolean acceptEquivalent, Node alt) {
 		// TODO: recursion not required, but is simpler
 		if (appt == null) {
-			throw new NullPointerException();
+			return null;
 		}
 		
-		Node t = alt;
+		Node t = null;
 		
-		if (r != null && r.data == appt) {
-			t = r;
+		if (r != null) {
+			//appt is greater than data, check right
+			if (appt.compareTo(r.data) > 0) {
+				t = nextInTree(r.right, appt, acceptEquivalent, alt);
+			}
+			
+			//appt is lesser than data, check left
+			if (appt.compareTo(r.data) < 0) {
+				t = nextInTree(r.left, appt, acceptEquivalent, r);
+			}
+			
+			//after running through the cases, appt is not greater than or 
+			//lesser than data at r, so check if equals and if so return t = r;
+			if (appt.compareTo(r.data) == 0) {
+				t = r;
+				if (!acceptEquivalent) {
+					t = t.right;
+				}
+			}
 		}
 		
-		if (r != null && acceptEquivalent) {
-			t = nextInTree(r.left, appt, acceptEquivalent, alt);
+		if ((t == null && alt != null) || t.right == alt) {
+			t = alt;
 		}
-		
 
-		
 		return t;
 	}
 	
