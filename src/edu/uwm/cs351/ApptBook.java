@@ -281,7 +281,20 @@ public class ApptBook implements Cloneable {
 		if (appt == null) {
 			throw new NullPointerException();
 		}
-		return null;
+		
+		Node t = alt;
+		
+		if (r != null && r.data == appt) {
+			t = r;
+		}
+		
+		if (r != null && acceptEquivalent) {
+			t = nextInTree(r.left, appt, acceptEquivalent, alt);
+		}
+		
+
+		
+		return t;
 	}
 	
 	/**
