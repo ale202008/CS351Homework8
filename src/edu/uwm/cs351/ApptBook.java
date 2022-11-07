@@ -497,12 +497,14 @@ public class ApptBook implements Cloneable {
 	// - Must add in "pre-order"
 	
 	private void insertAllHelper(ApptBook addend) {
-		if (addend.isCurrent()) {
-			this.insert(addend.getCurrent());
-			addend.advance();
-			insertAllHelper(addend);
+		//the given ApptBook's root is less than this ApptBook root, so go left.
+		if(addend.root.data.compareTo(this.root.data) < 0) {
+			
 		}
-
+		//the given ApptBook's root is greater than or equal to the ApptBook root, so go right.
+		if(addend.root.data.compareTo(this.root.data) < 0) {
+			
+		}
 	}
 	
 	/**
@@ -530,11 +532,9 @@ public class ApptBook implements Cloneable {
 		}
 		
 		ApptBook addendClone = addend;
-		if (addend == this) {
+		if (addendClone == this) {
 			addendClone = addend.clone();
 		}
-		
-		addendClone.start();
 		
 		insertAllHelper(addendClone);
 		
@@ -545,6 +545,17 @@ public class ApptBook implements Cloneable {
 	// TODO: private recursive helper method for clone.
 	// - Must be recursive
 	// - Take the answer as a parameter so you can set the cloned cursor
+	
+	private void cloneHelper(ApptBook addend) {
+		if (!isCurrent()) {
+			this.start();
+		}
+		else {
+			addend.insert(this.getCurrent());
+			this.advance();
+			cloneHelper(addend);
+		}
+	}
 	
 	/**
 	 * Generate a copy of this book.
@@ -570,6 +581,11 @@ public class ApptBook implements Cloneable {
 		}
 	
 		// TODO: copy the structure (use helper method)
+		
+		cloneHelper(answer);
+		if (!answer.isCurrent() && this.isCurrent()) {
+			answer.setCurrent(getCurrent());
+		}
 	
 		assert wellFormed() : "invariant failed at end of clone";
 		assert answer.wellFormed() : "invariant on answer failed at end of clone";
