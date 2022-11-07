@@ -384,12 +384,14 @@ public class ApptBook implements Cloneable {
 			throw new IllegalStateException();
 		}
 		else {
-			if (cursor.right == null) {
-				cursor = nextInTree(cursor, cursor.data, false, null);
-			}
-			else if (cursor.right != null) {
+			
+			if (cursor.right != null) {
 				cursor = firstInTree(cursor.right);
 			}
+			else {
+				cursor = nextInTree(root, cursor.data, false, null);
+			}
+			
 			
 			
 		}
@@ -443,7 +445,6 @@ public class ApptBook implements Cloneable {
 				root = r;
 			}
 			manyItems++;
-			
 			
 		}
 		else {
