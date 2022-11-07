@@ -281,44 +281,52 @@ public class ApptBook implements Cloneable {
 		if (appt == null) {
 			throw new NullPointerException();
 		}
-		
-		Node t = null;
 		if (r == null) {
 			return alt;
 		}
 		
+
+		
 		if (acceptEquivalent) {
 			//if appt is less that r.data, go left
 			if (appt.compareTo(r.data) < 0) {
-				t = nextInTree(r.left, appt, acceptEquivalent, alt);
+				return nextInTree(r.left, appt, acceptEquivalent, r);
 			}
 			
 			//if appt is greater than r.data, go right
 			if (appt.compareTo(r.data) > 0) {
-				t = nextInTree(r.right, appt, acceptEquivalent, alt);
+				return nextInTree(r.right, appt, acceptEquivalent, alt);
 			}
 			
 			//if appt is equal, set t to be the current node.
 			if (appt.compareTo(r.data) == 0) {
-				t = r;
+				return r;
 			}
+			
+			if (appt.compareTo(r.data) == 0) {
+				return r;
+			}
+			else {
+				return alt;
+			}
+			
+			
 		}
 		else {
 			if (appt.compareTo(r.data) < 0) {
-				t = nextInTree(r.left, appt, acceptEquivalent, alt);
+				return nextInTree(r.left, appt, acceptEquivalent, r);
 			}
 			
 			//if appt is greater than r.data, go right
-			if (appt.compareTo(r.data) > 0) {
-				t = nextInTree(r.right, appt, acceptEquivalent, alt);
+			if (appt.compareTo(r.data) >= 0) {
+				return nextInTree(r.right, appt, acceptEquivalent, alt);
 			}
+			
 		}
 		
-		if (t == null && alt != null) {
-			t = alt;
-		}
 
-		return t;
+
+		return null;
 	}
 	
 	/**
