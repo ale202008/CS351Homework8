@@ -432,6 +432,7 @@ public class ApptBook implements Cloneable {
 		
 		if (r == null) {
 			r = new Node(element);
+			
 			if (b != null) {
 				if (element.compareTo(b.data) < 0) {
 					b.left = r;
@@ -494,6 +495,10 @@ public class ApptBook implements Cloneable {
 	// - Must be recursive.
 	// - Must add in "pre-order"
 	
+	private void insertAllHelper(ApptBook addend) {
+		
+	}
+	
 	/**
 	 * Place all the appointments of another book (which may be the
 	 * same book as this!) into this book in order as in {@link #insert}.
@@ -513,6 +518,11 @@ public class ApptBook implements Cloneable {
 		// TODO: Implemented by student.
 		// Watch out for the this==addend case!
 		// Cloning the addend is an easy way to avoid problems.
+		
+		if (addend == null) {
+			throw new NullPointerException();
+		}
+		
 		assert wellFormed() : "invariant failed at end of insertAll";
 		assert addend.wellFormed() : "invariant of addend broken in insertAll";
 	}
