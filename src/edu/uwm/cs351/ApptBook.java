@@ -496,15 +496,15 @@ public class ApptBook implements Cloneable {
 	// - Must be recursive.
 	// - Must add in "pre-order"
 	
-	private void insertAllHelper(Node addendNode, Node rootNode) {
+	private void insertAllHelper(Node addendNode) {
 		if (addendNode != null) {
 			this.insert(addendNode.data);
 			
 			if (addendNode.left != null) {
-				insertAllHelper(addendNode.left, rootNode.left);
+				insertAllHelper(addendNode.left);
 			}
 			if (addendNode.right != null) {
-				insertAllHelper(addendNode.right, rootNode.right);
+				insertAllHelper(addendNode.right);
 			}
 		}
 	}
@@ -539,7 +539,7 @@ public class ApptBook implements Cloneable {
 		}
 		
 		//the given ApptBook's root is less than this ApptBook root, so go left.
-		insertAllHelper(addend.root, root);
+		insertAllHelper(addend.root);
 
 		
 		assert wellFormed() : "invariant failed at end of insertAll";
@@ -550,14 +550,15 @@ public class ApptBook implements Cloneable {
 	// - Must be recursive
 	// - Take the answer as a parameter so you can set the cloned cursor
 	
-	private void cloneHelper(ApptBook addend) {
-		if (!isCurrent()) {
-			this.start();
-		}
-		else {
-			addend.insert(this.getCurrent());
-			this.advance();
-			cloneHelper(addend);
+	private void cloneHelper(ApptBook addend, Node rootNode) {
+		if (rootNode != null) {
+			addend.insert(rootNode.data);
+			if (rootNode.left != null) {
+				cloneHelper(addend, rootNode.left);
+			}
+			if (rootNode.right != null) {
+				cloneHelper(addend, rootNode.right);
+			}
 		}
 	}
 	
@@ -586,7 +587,8 @@ public class ApptBook implements Cloneable {
 	
 		// TODO: copy the structure (use helper method)
 		
-		cloneHelper(answer);
+		answer = new ApptBook();
+		cloneHelper(answer, root);
 		if (!answer.isCurrent() && this.isCurrent()) {
 			answer.setCurrent(getCurrent());
 		}
