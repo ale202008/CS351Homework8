@@ -418,6 +418,12 @@ public class ApptBook implements Cloneable {
 	public void setCurrent(Appointment guide) {
 		assert wellFormed() : "invariant failed at start of setCurrent";
 		// TODO: Use nextInTree helper method
+		if (guide == null) {
+			throw new NullPointerException();
+		}
+		else {
+			cursor = nextInTree(cursor, cursor.data, false, null);
+		}
 		assert wellFormed() : "invariant failed at end of setCurrent";
 	}
 
