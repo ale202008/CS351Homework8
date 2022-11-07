@@ -387,7 +387,7 @@ public class ApptBook implements Cloneable {
 			if (cursor.right == null) {
 				cursor = nextInTree(cursor, cursor.data, false, null);
 			}
-			if (cursor.right != null) {
+			else if (cursor.right != null) {
 				cursor = firstInTree(cursor.right);
 			}
 		}
@@ -424,6 +424,39 @@ public class ApptBook implements Cloneable {
 
 	// OPTIONAL: You may define a helper method for insert.  The solution does
 	
+	private void insertHelper(Appointment element, Node r, Node b) {
+		
+		if (r == null) {
+			r = new Node(element);
+			if (b != null) {
+				if (element.compareTo(b.data) < 0) {
+					b.left = r;
+				}
+				
+				if (element.compareTo(b.data) >= 0) {
+					b.right = r;
+				}
+			}
+			else {
+				root = r;
+			}
+			manyItems++;
+			
+			
+		}
+		else {
+		
+			if (element.compareTo(r.data) < 0) {
+				insertHelper(element, r.left, r);
+			}
+			
+			if (element.compareTo(r.data) >= 0) {
+				insertHelper(element, r.right, r);
+			}
+
+		}
+	}
+	
 	/**
 	 * Add a new element to this book, in order.  If an equal appointment is already
 	 * in the book, it is inserted after the last of these. 
@@ -443,6 +476,14 @@ public class ApptBook implements Cloneable {
 		if (element == null) {
 			throw new IllegalArgumentException();
 		}
+		else {
+			insertHelper(element, root, null);
+		}
+		
+		//if it is equal do not add element?
+		
+		
+		
 		assert wellFormed() : "invariant failed at end of insert";
 	}
 
