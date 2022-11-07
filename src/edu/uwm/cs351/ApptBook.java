@@ -420,8 +420,9 @@ public class ApptBook implements Cloneable {
 		if (guide == null) {
 			throw new NullPointerException();
 		}
-		else {
-			cursor = nextInTree(cursor, cursor.data, false, null);
+		start();
+		while (isCurrent() && getCurrent().compareTo(guide) < 0) {
+			advance();
 		}
 		assert wellFormed() : "invariant failed at end of setCurrent";
 	}
@@ -496,7 +497,12 @@ public class ApptBook implements Cloneable {
 	// - Must add in "pre-order"
 	
 	private void insertAllHelper(ApptBook addend) {
-		
+		if (addend.isCurrent()) {
+			this.insert(addend.getCurrent());
+			addend.advance();
+			insertAllHelper(addend);
+		}
+
 	}
 	
 	/**
@@ -522,6 +528,15 @@ public class ApptBook implements Cloneable {
 		if (addend == null) {
 			throw new NullPointerException();
 		}
+		
+		ApptBook addendClone = addend;
+		if (addend == this) {
+			addendClone = addend.clone();
+		}
+		
+		addendClone.start();
+		
+		insertAllHelper(addendClone);
 		
 		assert wellFormed() : "invariant failed at end of insertAll";
 		assert addend.wellFormed() : "invariant of addend broken in insertAll";
