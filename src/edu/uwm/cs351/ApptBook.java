@@ -113,13 +113,12 @@ public class ApptBook implements Cloneable {
 			return report("data was null");
 		}
 		
-		if (hi != null && hi.compareTo(r.data) < 0 || lo != null && lo.compareTo(r.data) > 0) {
+		//making sure the bounds are correct
+		if (hi != null && hi.compareTo(r.data) <= 0 || lo != null && lo.compareTo(r.data) > 0) {
 			return report("not in range");
 		}
-		if (hi != null && hi.compareTo(r.data) == 0) {
-			return report("not before root");
-		}
 		
+		//check for every node.
 		if (!allInRange(r.left, lo, r.data) || !allInRange(r.right, r.data, hi)) {
 			return false;
 		}
@@ -284,8 +283,40 @@ public class ApptBook implements Cloneable {
 		}
 		
 		Node t = null;
+		if (r == null) {
+			return alt;
+		}
 		
-
+		if (acceptEquivalent) {
+			//if appt is less that r.data, go left
+			if (appt.compareTo(r.data) < 0) {
+				t = nextInTree(r.left, appt, acceptEquivalent, alt);
+			}
+			
+			//if appt is greater than r.data, go right
+			if (appt.compareTo(r.data) > 0) {
+				t = nextInTree(r.right, appt, acceptEquivalent, alt);
+			}
+			
+			//if appt is equal, set t to be the current node.
+			if (appt.compareTo(r.data) == 0) {
+				t = r;
+			}
+		}
+		else {
+			if (appt.compareTo(r.data) < 0) {
+				t = nextInTree(r.left, appt, acceptEquivalent, alt);
+			}
+			
+			//if appt is greater than r.data, go right
+			if (appt.compareTo(r.data) > 0) {
+				t = nextInTree(r.right, appt, acceptEquivalent, alt);
+			}
+		}
+		
+		if (t == null && alt != null) {
+			t = alt;
+		}
 
 		return t;
 	}
