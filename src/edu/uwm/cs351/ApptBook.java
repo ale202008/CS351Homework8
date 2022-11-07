@@ -496,14 +496,16 @@ public class ApptBook implements Cloneable {
 	// - Must be recursive.
 	// - Must add in "pre-order"
 	
-	private void insertAllHelper(ApptBook addend) {
-		//the given ApptBook's root is less than this ApptBook root, so go left.
-		if(addend.root.data.compareTo(this.root.data) < 0) {
+	private void insertAllHelper(Node addendNode, Node rootNode) {
+		if (addendNode != null) {
+			this.insert(addendNode.data);
 			
-		}
-		//the given ApptBook's root is greater than or equal to the ApptBook root, so go right.
-		if(addend.root.data.compareTo(this.root.data) < 0) {
-			
+			if (addendNode.left != null) {
+				insertAllHelper(addendNode.left, rootNode.left);
+			}
+			if (addendNode.right != null) {
+				insertAllHelper(addendNode.right, rootNode.right);
+			}
 		}
 	}
 	
@@ -536,7 +538,9 @@ public class ApptBook implements Cloneable {
 			addendClone = addend.clone();
 		}
 		
-		insertAllHelper(addendClone);
+		//the given ApptBook's root is less than this ApptBook root, so go left.
+		insertAllHelper(addend.root, root);
+
 		
 		assert wellFormed() : "invariant failed at end of insertAll";
 		assert addend.wellFormed() : "invariant of addend broken in insertAll";
