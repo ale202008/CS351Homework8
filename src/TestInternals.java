@@ -905,6 +905,30 @@ public class TestInternals extends ApptBook.TestInvariantChecker {
 		assertReporting(true, () -> allInRange(n, e1, e5));
 	}
 	
+	public void testR8() {
+		Node n0 = newNode(null, null, null);
+		assertReporting(false,() -> allInRange(n0, null, null));
+		assertReporting(false,() -> allInRange(n0, e1, e5));
+		
+		Node n2 = newNode(e2, null, null);
+		Node n1 = newNode(e1, null, n2);
+		Node n4 = newNode(e4, null, null);
+		Node n5 = newNode(e5, n4, null);
+		Node n3 = newNode(e3, n1, n5);
+		
+		assertReporting(true, () -> allInRange(n3, e1, null));
+		
+		n1.setRight(n0);
+		assertReporting(false, () -> allInRange(n3, e1, null));
+		n1.setRight(n2);
+		
+		n5.setLeft(n0);
+		assertReporting(false, () -> allInRange(n3, e1, null));
+		n5.setLeft(n4);;
+		
+		assertReporting(true, () -> allInRange(n3, e1, null));
+	}
+	
 	public void testR9() {
 		Appointment e1a = new Appointment(new Period(now,Duration.HOUR),"1: think");
 		Appointment e1b = new Appointment(new Period(now,Duration.HOUR),"1: think");

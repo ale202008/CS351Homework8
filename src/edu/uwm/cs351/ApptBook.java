@@ -109,6 +109,10 @@ public class ApptBook implements Cloneable {
 			return true;
 		}
 		
+		if (r.data == null) {
+			return report("data was null");
+		}
+		
 		if (hi != null && hi.compareTo(r.data) < 0 || lo != null && lo.compareTo(r.data) > 0) {
 			return report("not in range");
 		}
