@@ -539,7 +539,7 @@ public class ApptBook implements Cloneable {
 		}
 		
 		//the given ApptBook's root is less than this ApptBook root, so go left.
-		insertAllHelper(addend.root);
+		insertAllHelper(addendClone.root);
 
 		
 		assert wellFormed() : "invariant failed at end of insertAll";
