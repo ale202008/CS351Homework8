@@ -73,7 +73,6 @@ public class ApptBook implements Cloneable {
 			return false;
 		}
 
-		
 		return true;
 	}
 	
@@ -219,7 +218,7 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of size";
 		// TODO: Implemented by student.
-		return 0;
+		return countNodes(root);
 	}
 
 	/**
