@@ -390,6 +390,8 @@ public class ApptBook implements Cloneable {
 			else if (cursor.right != null) {
 				cursor = firstInTree(cursor.right);
 			}
+			
+			
 		}
 		assert wellFormed() : "invariant failed at end of advance";
 	}
