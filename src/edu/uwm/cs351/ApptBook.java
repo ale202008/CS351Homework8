@@ -172,6 +172,26 @@ public class ApptBook implements Cloneable {
 		// (Use "report" to give a descriptive report while returning false.)
 		// TODO: Use helper methods to do all the work.
 		
+		//Invariant 1
+		if (!checkHeight(root, manyItems)) {
+			return report("the tree mus be bounde by number of items");
+		}
+		
+		//Invariant 2
+		if (countNodes(root) != manyItems) {
+			return report("number of nodes does not match manyItems");
+		}
+		
+		//Invariant 3
+		if (!allInRange(root, null, null)) {
+			return false;
+		}
+		
+		//Invariant 4
+		if (!foundCursor(root)) {
+			return report("cursor not in tree");
+		}
+		
 		// If no problems found, then return true:
 		return true;
 	}
@@ -185,6 +205,8 @@ public class ApptBook implements Cloneable {
 	public ApptBook( )
 	{
 		// TODO: Implemented by student.
+		manyItems = 0;
+		root = precursor = cursor = null;
 		assert wellFormed() : "invariant failed at end of constructor";
 	}
 
