@@ -137,11 +137,6 @@ public class ApptBook implements Cloneable {
 	 */
 	private boolean foundCursor(Node r) {
 		// TODO
-		
-		if(!checkHeight(r, countNodes(r))) {
-			return false;
-		}
-		
 		if (cursor == r) {
 			return true;
 		}
@@ -445,6 +440,9 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of insert";
 		// TODO: Implemented by student.
+		if (element == null) {
+			throw new IllegalArgumentException();
+		}
 		assert wellFormed() : "invariant failed at end of insert";
 	}
 
