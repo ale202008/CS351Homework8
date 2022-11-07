@@ -173,7 +173,7 @@ public class ApptBook implements Cloneable {
 		
 		//Invariant 1
 		if (!checkHeight(root, manyItems)) {
-			return report("the tree mus be bounde by number of items");
+			return report("the tree must be bound by number of items");
 		}
 		
 		//Invariant 2
@@ -250,6 +250,11 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of start";
 		// TODO: Implemented by student.
+		
+		if (countNodes(root) != 0) {
+			cursor = firstInTree(root);
+		}
+
 		assert wellFormed() : "invariant failed at end of start";
 	}
 
@@ -264,7 +269,12 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of isCurrent";
 		// TODO: Implemented by student.
-		return false;
+		if (cursor != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -281,7 +291,13 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of getCurrent";
 		// TODO: Implemented by student.
-		return null;
+		
+		if (!isCurrent()) {
+			throw new IllegalStateException();
+		}
+		else {
+			return cursor.data;
+		}
 	}
 
 	/**
@@ -369,6 +385,17 @@ public class ApptBook implements Cloneable {
 		assert wellFormed() : "invariant failed at start of advance";
 		// TODO: See homework description.
 		// firstInTree and nextInTree are useful.
+		if (!isCurrent()) {
+			throw new IllegalStateException();
+		}
+		else {
+			if (cursor.right == null) {
+				cursor = nextInTree(cursor, cursor.data, false, null);
+			}
+			if (cursor.right != null) {
+				cursor = firstInTree(cursor.right);
+			}
+		}
 		assert wellFormed() : "invariant failed at end of advance";
 	}
 
