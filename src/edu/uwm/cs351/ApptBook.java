@@ -83,14 +83,13 @@ public class ApptBook implements Cloneable {
 	 */
 	private int countNodes(Node r) {
 		// TODO
-		int count = 0;
-		
-		if (r != null) {
-			count++;
-			count += countNodes(r.left) + countNodes(r.right);
+		if (r == null) {
+			return 0;
 		}
-
-		return count;
+		else {
+			return 1 + countNodes(r.left) + countNodes(r.right);
+		}
+		
 	}
 	
 	/**
@@ -213,7 +212,7 @@ public class ApptBook implements Cloneable {
 	{
 		assert wellFormed() : "invariant failed at start of size";
 		// TODO: Implemented by student.
-		return countNodes(root);
+		return manyItems;
 	}
 
 	/**
@@ -246,7 +245,7 @@ public class ApptBook implements Cloneable {
 		assert wellFormed() : "invariant failed at start of start";
 		// TODO: Implemented by student.
 		
-		if (countNodes(root) != 0) {
+		if (manyItems != 0) {
 			cursor = firstInTree(root);
 		}
 
