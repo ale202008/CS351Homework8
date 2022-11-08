@@ -419,9 +419,8 @@ public class ApptBook implements Cloneable {
 		if (guide == null) {
 			throw new NullPointerException();
 		}
-		start();
-		while (isCurrent() && getCurrent().compareTo(guide) < 0) {
-			advance();
+		else {
+			cursor = nextInTree(root, guide, true, null);
 		}
 		assert wellFormed() : "invariant failed at end of setCurrent";
 	}
