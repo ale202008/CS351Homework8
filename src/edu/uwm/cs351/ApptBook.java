@@ -557,9 +557,10 @@ public class ApptBook implements Cloneable {
 			if (rootNode.right != null) {
 				cloneHelper(addend, rootNode.right);
 			}
-			if (this.isCurrent()) {
-				addend.setCurrent(this.getCurrent());
+			if (isCurrent()) {
+				addend.setCurrent(getCurrent());
 			}
+
 		}
 
 	}
