@@ -548,6 +548,7 @@ public class ApptBook implements Cloneable {
 	// - Take the answer as a parameter so you can set the cloned cursor
 	
 	private void cloneHelper(ApptBook addend, Node rootNode) {
+
 		if (rootNode != null) {
 			addend.insert(rootNode.data);
 			if (rootNode.left != null) {
@@ -556,13 +557,11 @@ public class ApptBook implements Cloneable {
 			if (rootNode.right != null) {
 				cloneHelper(addend, rootNode.right);
 			}
-			if (!addend.isCurrent() && this.isCurrent()) {
-				addend.setCurrent(getCurrent());
-				if (addend.cursor != null && addend.cursor.right != null && addend.cursor.data == addend.cursor.right.data) {
-					addend.advance();
-				}
+			if (this.isCurrent()) {
+				addend.setCurrent(this.getCurrent());
 			}
 		}
+
 	}
 	
 	/**
