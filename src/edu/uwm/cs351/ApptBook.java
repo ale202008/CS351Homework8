@@ -41,7 +41,6 @@ public class ApptBook implements Cloneable {
 	// using a binary search tree.
 	private int manyItems;
 	private Node root;
-	private Node precursor;
 	private Node cursor;
 
 	private static Consumer<String> reporter = (s) -> { System.err.println("Invariant error: " + s); };
@@ -199,7 +198,7 @@ public class ApptBook implements Cloneable {
 	{
 		// TODO: Implemented by student.
 		manyItems = 0;
-		root = precursor = cursor = null;
+		root = cursor = null;
 		assert wellFormed() : "invariant failed at end of constructor";
 	}
 
@@ -557,6 +556,12 @@ public class ApptBook implements Cloneable {
 			if (rootNode.right != null) {
 				cloneHelper(addend, rootNode.right);
 			}
+			if (!addend.isCurrent() && this.isCurrent()) {
+				addend.setCurrent(getCurrent());
+				if (addend.cursor != null && addend.cursor.right != null && addend.cursor.data == addend.cursor.right.data) {
+					addend.advance();
+				}
+			}
 		}
 	}
 	
@@ -587,9 +592,7 @@ public class ApptBook implements Cloneable {
 		
 		answer = new ApptBook();
 		cloneHelper(answer, root);
-		if (!answer.isCurrent() && this.isCurrent()) {
-			answer.setCurrent(getCurrent());
-		}
+
 	
 		assert wellFormed() : "invariant failed at end of clone";
 		assert answer.wellFormed() : "invariant on answer failed at end of clone";
